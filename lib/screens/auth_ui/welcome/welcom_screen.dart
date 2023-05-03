@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/auth_ui/login/login_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class WelcomScreen extends StatelessWidget {
+  const WelcomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,6 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextButton(
-                onPressed: () {},
                 style: TextButton.styleFrom(
                   minimumSize: Size(double.infinity, 40),
                   foregroundColor: Colors.white,
@@ -75,10 +75,13 @@ class Login extends StatelessWidget {
                     borderRadius: BorderRadius.circular(210),
                   ),
                 ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    'Sign in',
+                    'Login',
                     style: TextStyle(fontSize: 17),
                   ),
                 ),
@@ -88,7 +91,9 @@ class Login extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
                 style: TextButton.styleFrom(
                   minimumSize: Size(double.infinity, 40),
                   foregroundColor: Colors.red,
