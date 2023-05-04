@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/auth_ui/login/login_screen.dart';
 import 'package:flutter_ecommerce/screens/auth_ui/sign_up/signup_screen.dart';
 import 'package:flutter_ecommerce/screens/auth_ui/welcome/welcom_screen.dart';
+import 'package:flutter_ecommerce/screens/home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const WelcomScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScreen(),
+        '/home': (context) => const HomeScreen(),
       },
     );
   }
