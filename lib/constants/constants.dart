@@ -24,14 +24,17 @@ showLoaderDialogue(BuildContext context) {
       builder: (context) {
         return SizedBox(
           width: 100,
-          child: Column(children: [
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
             CircularProgressIndicator(
               color: Colors.red,
             ),
             SizedBox(height: 18),
             Container(
               margin: EdgeInsets.only(left: 7),
-              child: Text('Loading...'),
+              child: Text(
+                'Loading...',
+                style: TextStyle(color: Colors.black),
+              ),
             )
           ]),
         );
@@ -79,5 +82,21 @@ String getMessageFromErrorCode(String errorCode) {
       return "Email address is invalid.";
     default:
       return "Login failed. Please try again.";
+  }
+}
+
+//! login validation
+bool loginValidation(String email, String password) {
+  if (email.isEmpty && password.isEmpty) {
+    showMessage('Enter Email and Password');
+    return false;
+  } else if (email.isEmpty) {
+    showMessage('Email is empty');
+    return false;
+  } else if (password.isEmpty) {
+    showMessage('Password is empty');
+    return false;
+  } else {
+    return true;
   }
 }

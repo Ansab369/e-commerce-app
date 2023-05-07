@@ -1,10 +1,19 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/constants.dart';
+import 'package:flutter_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +52,7 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: 52.0),
               TextField(
+                controller: email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -55,6 +65,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(height: 16.0),
               TextField(
                 // obscureText: !_showPassword,
+                controller: password,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -84,8 +95,17 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(210),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     //! signIn here
+                    bool isValidate =
+                        loginValidation(email.text, password.text);
+                    if (isValidate == true) {
+                      bool isLogined = await FirebaseAuthHelper.instance
+                          .login(email.text, password.text, context);
+                      if (isLogined) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      }
+                    }
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10),
