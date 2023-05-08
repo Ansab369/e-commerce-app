@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/constants.dart';
+import 'package:flutter_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
@@ -7,6 +9,10 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController name = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController phone = TextEditingController();
+    TextEditingController password = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -43,6 +49,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 52.0),
               TextField(
+                controller: name,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -53,6 +60,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -64,6 +72,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: phone,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -75,6 +84,7 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: password,
                 // obscureText: !_showPassword,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -105,7 +115,18 @@ class SignUpScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(210),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    //! signIn
+                    bool isValidate = signUpValidation(
+                        email.text, password.text, name.text, phone.text);
+                    if (isValidate) {
+                      bool isSignIn = await FirebaseAuthHelper.instance
+                          .signUp(email.text, password.text, context);
+                      if (isSignIn) {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      }
+                    }
+                  },
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(

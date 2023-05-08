@@ -24,4 +24,22 @@ class FirebaseAuthHelper {
       return false;
     }
   }
+
+  Future<bool> signUp(
+      String emailAddress, String password, BuildContext context) async {
+    try {
+      showLoaderDialogue(context); // loading
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailAddress,
+              password: password); //create account with email and password
+      Navigator.of(context).pop();
+      return true;
+    } on FirebaseAuthException catch (error) {
+      Navigator.of(context).pop();
+      showMessage(error.code.toString());
+      return false;
+    }
+    //!
+  }
 }

@@ -100,3 +100,26 @@ bool loginValidation(String email, String password) {
     return true;
   }
 }
+
+//! SignUp validation
+bool signUpValidation(
+    String email, String password, String name, String phone) {
+  if (email.isEmpty && password.isEmpty && name.isEmpty && phone.isEmpty) {
+    showMessage('All fields are empty');
+    return false;
+  } else if (name.isEmpty) {
+    showMessage('Enter Name');
+    return false;
+  } else if (email.isEmpty) {
+    showMessage('Enter Email');
+    return false;
+  } else if (phone.isEmpty) {
+    showMessage('Enter Phone number');
+    return false;
+  } else if (password.isEmpty) {
+    showMessage('Enter Password');
+    return false;
+  } else {
+    return true;
+  }
+}

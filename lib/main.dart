@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuthHelper.instance.getAuthChange,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomeScreen();
+            return const HomeScreen();
           } else {
-            return WelcomScreen();
+            return const WelcomScreen();
           }
         },
       ),
