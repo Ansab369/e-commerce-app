@@ -70,9 +70,9 @@ class WelcomScreen extends StatelessWidget {
                   style: TextButton.styleFrom(
                     minimumSize: Size(double.infinity, 40),
                     foregroundColor: Colors.white,
-                    backgroundColor: Colors.red,
+                    backgroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(210),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   onPressed: () {
@@ -96,11 +96,11 @@ class WelcomScreen extends StatelessWidget {
                   },
                   style: TextButton.styleFrom(
                     minimumSize: Size(double.infinity, 40),
-                    foregroundColor: Colors.red,
+                    foregroundColor: Colors.black,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(210),
+                      borderRadius: BorderRadius.circular(10),
                       side: BorderSide(
-                        color: Colors.red,
+                        color: Colors.black,
                         width: 2,
                       ),
                     ),

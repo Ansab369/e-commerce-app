@@ -84,35 +84,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 32.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(double.infinity, 40),
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(210),
-                    ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  onPressed: () async {
-                    //! signIn here
-                    bool isValidate =
-                        loginValidation(email.text, password.text);
-                    if (isValidate == true) {
-                      bool isLogined = await FirebaseAuthHelper.instance
-                          .login(email.text, password.text, context);
-                      if (isLogined) {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      }
+                ),
+                onPressed: () async {
+                  //! signIn here
+                  bool isValidate = loginValidation(email.text, password.text);
+                  if (isValidate == true) {
+                    bool isLogined = await FirebaseAuthHelper.instance
+                        .login(email.text, password.text, context);
+                    if (isLogined) {
+                      Navigator.pushReplacementNamed(context, '/home');
                     }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'LogIn',
-                      style: TextStyle(fontSize: 17),
-                    ),
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'LogIn',
+                    style: TextStyle(fontSize: 17),
                   ),
                 ),
               ),
@@ -131,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           'Create Account',
                           style: TextStyle(
-                              color: Colors.red,
+                              color: Colors.amber,
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),

@@ -54,8 +54,14 @@ class SignUpScreen extends StatelessWidget {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: BorderSide(width: 1, color: Colors.blue),
+                  ),
                   labelText: 'Name',
-                  prefixIcon: Icon(Icons.person),
+                  prefixIcon: Icon(
+                    Icons.person,
+                  ),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -104,35 +110,32 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 32.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: Size(double.infinity, 40),
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(210),
-                    ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  minimumSize: Size(double.infinity, 40),
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  onPressed: () async {
-                    //! signIn
-                    bool isValidate = signUpValidation(
-                        email.text, password.text, name.text, phone.text);
-                    if (isValidate) {
-                      bool isSignIn = await FirebaseAuthHelper.instance
-                          .signUp(email.text, password.text, context);
-                      if (isSignIn) {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      }
+                ),
+                onPressed: () async {
+                  //! signIn
+                  bool isValidate = signUpValidation(
+                      email.text, password.text, name.text, phone.text);
+                  if (isValidate) {
+                    bool isSignIn = await FirebaseAuthHelper.instance
+                        .signUp(email.text, password.text, context);
+                    if (isSignIn) {
+                      Navigator.pushReplacementNamed(context, '/home');
                     }
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Create Account',
-                      style: TextStyle(fontSize: 17),
-                    ),
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    'Create Account',
+                    style: TextStyle(fontSize: 17),
                   ),
                 ),
               ),
@@ -151,7 +154,7 @@ class SignUpScreen extends StatelessWidget {
                         child: Text(
                           'LogIn',
                           style: TextStyle(
-                              color: Colors.red,
+                              color: Colors.amber,
                               fontSize: 16,
                               fontWeight: FontWeight.bold),
                         ),
