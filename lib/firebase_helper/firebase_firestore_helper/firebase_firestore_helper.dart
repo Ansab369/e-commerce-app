@@ -7,8 +7,7 @@ import 'package:flutter_ecommerce/models/product_model/product_model.dart';
 
 class FirebaseFirestoreHelper {
   static FirebaseFirestoreHelper instance = FirebaseFirestoreHelper();
-  final FirebaseFirestore _firebaseFirestore =
-      FirebaseFirestore.instance; //created instance
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Future<List<CategoryModel>> getCategories() async {
     try {
@@ -35,6 +34,7 @@ class FirebaseFirestoreHelper {
       List<ProductModel> productList = querySnapshot.docs
           .map((e) => ProductModel.fromJson(e.data()))
           .toList();
+      productList.shuffle();
       return productList;
     } catch (error) {
       showMessage(error.toString());

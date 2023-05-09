@@ -5,6 +5,9 @@ import 'package:flutter_ecommerce/constants/data.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_firestore_helper/firebase_firestore_helper.dart';
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
+import 'package:flutter_ecommerce/screens/home/widgets/header_widget.dart';
+import 'package:flutter_ecommerce/screens/home/widgets/shimmer_widgets.dart';
+import 'package:flutter_ecommerce/screens/product_datails/product_details.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -99,84 +102,104 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                 SizedBox(height: 20),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: productModelList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 20.0, // Spacing between rows
-                    crossAxisSpacing: 20.0, // Spacing between columns
-                    childAspectRatio: 0.76,
-                  ),
-                  itemBuilder: (context, index) {
-                    ProductModel singleProduct = productModelList[index];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              height: 180,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: NetworkImage(singleProduct.image,
-                                      scale: 10),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              right: 12,
-                              top: 12,
-                              child: Icon(
-                                Icons.favorite,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                isLoading
+                    ? ShimmerProduct()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: productModelList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 20.0,
+                          crossAxisSpacing: 20.0,
+                          childAspectRatio: 0.73,
                         ),
-                        SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
+                        itemBuilder: (context, index) {
+                          ProductModel singleProduct = productModelList[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailsPage(
+                                      singleProduct: singleProduct),
+                                ),
+                              );
+                            },
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  singleProduct.name,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black.withOpacity(0.6),
-                                  ),
+                                Stack(
+                                  children: [
+                                    Container(
+                                      height: 180,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              singleProduct.image,
+                                              scale: 10),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                      right: 12,
+                                      top: 12,
+                                      child: GestureDetector(
+                                        onTap: () {},
+                                        child: Icon(
+                                          Icons.favorite,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(height: 3),
-                                Text(
-                                  '\$ ${singleProduct.price}',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                SizedBox(height: 5),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          singleProduct.name,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color:
+                                                Colors.black.withOpacity(0.6),
+                                          ),
+                                        ),
+                                        SizedBox(height: 3),
+                                        Text(
+                                          '\$ ${singleProduct.price}',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      height: 40,
+                                      width: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[300],
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Icon(Icons.shopping_cart),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[300],
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Icon(Icons.shopping_cart),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
-                ),
+                          );
+                        },
+                      ),
               ],
             ),
           ),
@@ -186,108 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class ShimmerTabBar extends StatelessWidget {
-  const ShimmerTabBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40.0,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          physics: ScrollPhysics(),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Shimmer.fromColors(
-              baseColor: Colors.grey.shade200,
-              highlightColor: Colors.grey.shade400,
-              child: Container(
-                width: 80,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                margin: EdgeInsets.only(right: 10),
-              ),
-            );
-          }),
-    );
-  }
-}
-
 //! product model
-
-List<ProductModel> allProducts = [
-  ProductModel(
-    image:
-        'https://image.architonic.com/pro2-2/20084003/nubes-modular-sofa-right-armrest-pro-b-arcit18.jpg',
-    id: '1',
-    isFavorite: false,
-    name: 'sofa',
-    price: '100',
-    discription:
-        'discription fedf fde fekfkhe efihekhf eiy fh feifh efiehfiehyfbiehf eifyeihef efiyefgief efhfe fefef fef feifeihf ',
-    status: 'pending',
-  ),
-  ProductModel(
-    image:
-        'https://image.architonic.com/pro2-2/20235658/pantry-storage--1-oil-oak-02-pro-b-arcit18.jpg',
-    id: '2',
-    isFavorite: false,
-    name: 'Light',
-    price: '1302',
-    discription:
-        'discription fedf fde fekfkhe efihekhf eiy fh feifh efiehfiehyfbiehf eifyeihef efiyefgief efhfe fefef fef feifeihf ',
-    status: 'pending',
-  ),
-  ProductModel(
-    image:
-        'https://image.architonic.com/pro2-2/20251626/vega--01-0000-pro-b-arcit18.jpg',
-    id: '3',
-    isFavorite: false,
-    name: 'Litter Bin',
-    price: '182',
-    discription:
-        'discription fedf fde fekfkhe efihekhf eiy fh feifh efiehfiehyfbiehf eifyeihef efiyefgief efhfe fefef fef feifeihf ',
-    status: 'pending',
-  ),
-  ProductModel(
-    image: 'https://image.architonic.com/img_pro2-1/138/1033/saturno-02-h.jpg',
-    id: '4',
-    isFavorite: false,
-    name: 'Mirror',
-    price: '91',
-    discription:
-        'discription fedf fde fekfkhe efihekhf eiy fh feifh efiehfiehyfbiehf eifyeihef efiyefgief efhfe fefef fef feifeihf ',
-    status: 'pending',
-  ),
-];
-
-class DiscoverHeader extends StatelessWidget {
-  const DiscoverHeader({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Discover',
-          style: TextStyle(
-              color: Colors.black, fontSize: 35, fontWeight: FontWeight.bold),
-        ),
-        Icon(
-          Icons.notifications_none_outlined,
-          size: 26,
-        )
-      ],
-    );
-  }
-}
 
 class SearchTextField extends StatelessWidget {
   @override
