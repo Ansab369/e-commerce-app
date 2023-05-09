@@ -31,7 +31,7 @@ class ProductModel {
     };
   }
 
-  factory ProductModel.fromMap(Map<String, dynamic> map) {
+  factory ProductModel.fromJson(Map<String, dynamic> map) {
     return ProductModel(
       image: map['image'] as String,
       id: map['id'] as String,
@@ -45,6 +45,6 @@ class ProductModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ProductModel.fromJson(String source) =>
-      ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  // factory ProductModel.fromJson(String source) =>
+  //     ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
