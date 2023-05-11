@@ -3,12 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   final ProductModel singleProduct;
 
   ProductDetailsPage({
     required this.singleProduct,
   });
+
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  int quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +36,7 @@ class ProductDetailsPage extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(40)),
                           image: DecorationImage(
-                              image: NetworkImage(singleProduct.image),
+                              image: NetworkImage(widget.singleProduct.image),
                               fit: BoxFit.cover),
                         ),
                       ),
@@ -92,7 +99,7 @@ class ProductDetailsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              singleProduct.name,
+                              widget.singleProduct.name,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500,
@@ -101,7 +108,7 @@ class ProductDetailsPage extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             Text(
-                              '\$${singleProduct.price}',
+                              '\$${widget.singleProduct.price}',
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w800,
@@ -110,63 +117,129 @@ class ProductDetailsPage extends StatelessWidget {
                           ],
                         ),
                         Spacer(),
-                        Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(5),
+                        GestureDetector(
+                          onTap: () {
+                            if (quantity >= 1) {
+                              setState(() {
+                                quantity--;
+                              });
+                            }
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Icon(Icons.remove),
                           ),
-                          child: Icon(Icons.add),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
-                            '01',
+                            quantity.toString(),
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        Container(
-                          height: 30,
-                          width: 30,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(5),
+                        GestureDetector(
+                          onTap: () {
+                            if (quantity >= 0) {
+                              setState(() {
+                                quantity++;
+                              });
+                            }
+                          },
+                          child: Container(
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Icon(Icons.add),
                           ),
-                          child: Icon(Icons.remove),
                         ),
                       ],
                     ),
                     SizedBox(height: 16),
                     Text(
-                      singleProduct.discription,
+                      widget.singleProduct.discription,
                       style: TextStyle(
                           fontSize: 16, color: Colors.black.withOpacity(0.6)),
                     ),
-                    SizedBox(height: 16),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        minimumSize: Size(double.infinity, 40),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () async {},
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          'Add To Cart',
-                          style: TextStyle(fontSize: 17),
-                        ),
-                      ),
-                    ),
+                    SizedBox(height: 80),
                   ],
                 ),
               ),
             ],
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              TextButton(
+                style: TextButton.styleFrom(
+                  side: BorderSide(
+                    color: Colors.black,
+                    width: 2.0,
+                  ),
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () async {},
+                child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    )),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () async {},
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      'Buy Now',
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // child: TextButton(
+          //   style: TextButton.styleFrom(
+          //     minimumSize: Size(double.infinity, 40),
+          //     foregroundColor: Colors.white,
+          //     backgroundColor: Colors.black,
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(10),
+          //     ),
+          //   ),
+          //   onPressed: () async {},
+          //   child: Padding(
+          //     padding: EdgeInsets.all(10),
+          //     child: Text(
+          //       'Add To Cart',
+          //       style: TextStyle(fontSize: 17),
+          //     ),
+          //   ),
+          // ),
         ),
       ),
     );

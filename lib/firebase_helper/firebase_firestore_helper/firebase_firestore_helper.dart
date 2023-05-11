@@ -41,4 +41,24 @@ class FirebaseFirestoreHelper {
       return [];
     }
   }
+
+  Future<List<ProductModel>> getCategoryViewProduct(String id) async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await _firebaseFirestore
+              .collection('categories')
+              .doc(id)
+              .collection('products')
+              .get();
+
+      List<ProductModel> productList = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data()))
+          .toList();
+      productList.shuffle();
+      return productList;
+    } catch (error) {
+      showMessage(error.toString());
+      return [];
+    }
+  }
 }

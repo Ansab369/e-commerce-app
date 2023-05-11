@@ -1,14 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/constants/data.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_firestore_helper/firebase_firestore_helper.dart';
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/header_widget.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/shimmer_widgets.dart';
 import 'package:flutter_ecommerce/screens/product_datails/product_details.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,20 +19,39 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CategoryModel> categoryModelList = [];
   List<ProductModel> productModelList = [];
   bool isLoading = false;
+  bool isLoadingProducts = false;
+  int currentTab = 0;
+
+// initstate
   @override
   void initState() {
     getCategoryList();
     super.initState();
   }
 
+// load gategory name list,all products list
   void getCategoryList() async {
     setState(() {
       isLoading = true;
+      isLoadingProducts = true;
     });
     categoryModelList = await FirebaseFirestoreHelper.instance.getCategories();
     productModelList = await FirebaseFirestoreHelper.instance.getAllProducts();
     setState(() {
       isLoading = false;
+      isLoadingProducts = false;
+    });
+  }
+
+// load gategory items
+  void getCategoryViewList(String id) async {
+    setState(() {
+      isLoadingProducts = true;
+    });
+    productModelList =
+        await FirebaseFirestoreHelper.instance.getCategoryViewProduct(id);
+    setState(() {
+      isLoadingProducts = false;
     });
   }
 
@@ -66,14 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                selectedTabIndex.value = index;
+                                setState(() {
+                                  currentTab = index;
+                                });
+                                // selectedTabIndex.value = index;
+                                getCategoryViewList(
+                                    categoryModelList[index].id);
                               },
                               child: ValueListenableBuilder(
                                 valueListenable: selectedTabIndex,
                                 builder: (context, value, child) {
+                                  print(selectedTabIndex.value);
                                   return Container(
                                     decoration: BoxDecoration(
-                                      color: index == selectedTabIndex.value
+                                      color: index == currentTab
                                           ? Colors.black
                                           : Colors.grey[200],
                                       borderRadius: BorderRadius.all(
@@ -88,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Text(
                                       categoryModelList[index].name,
                                       style: TextStyle(
-                                        color: index == selectedTabIndex.value
+                                        color: index == currentTab
                                             ? Colors.white
                                             : Colors.black,
                                         fontSize: 18,
@@ -102,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                 SizedBox(height: 20),
-                isLoading
+                isLoadingProducts
                     ? ShimmerProduct()
                     : GridView.builder(
                         shrinkWrap: true,
@@ -112,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 20.0,
                           crossAxisSpacing: 20.0,
-                          childAspectRatio: 0.73,
+                          childAspectRatio: 0.65,
                         ),
                         itemBuilder: (context, index) {
                           ProductModel singleProduct = productModelList[index];
@@ -167,6 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Text(
                                           singleProduct.name,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
