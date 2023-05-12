@@ -34,6 +34,7 @@ class FirebaseFirestoreHelper {
       List<ProductModel> productList = querySnapshot.docs
           .map((e) => ProductModel.fromJson(e.data()))
           .toList();
+
       productList.shuffle();
       return productList;
     } catch (error) {

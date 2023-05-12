@@ -34,18 +34,16 @@ class ProductModel {
     };
   }
 
-  factory ProductModel.fromJson(Map<String, dynamic> map) {
-    return ProductModel(
-      image: map['image'] as String,
-      id: map['id'] as String,
-      isFavorite: map['isFavorite'] as bool,
-      name: map['name'] as String,
-      price: map['price'] as String,
-      discription: map['discription'] as String,
-      status: map['status'] as String,
-      quantity: map['status'],
-    );
-  }
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
+        id: json["id"],
+        name: json["name"],
+        discription: json["discription"],
+        image: json["image"],
+        isFavorite: false,
+        quantity: json["quantity"],
+        status: json['status'],
+        price: json["price"],
+      );
 
   ProductModel copyWith({
     int? quantity,

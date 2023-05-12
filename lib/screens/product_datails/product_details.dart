@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce/constants/constants.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
 import 'package:flutter_ecommerce/provider/app_provider.dart';
 import 'package:flutter_ecommerce/screens/cart/cart_screen.dart';
+import 'package:flutter_ecommerce/screens/favourite/favourite_screen.dart';
 import 'package:provider/provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -33,6 +35,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
+//! image
                       Container(
                         width: MediaQuery.of(context).size.width / 1.15,
                         height: 400,
@@ -46,6 +49,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ],
                   ),
+//! back button
                   GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -69,6 +73,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       child: Icon(Icons.arrow_back),
                     ),
                   ),
+//! cart Button
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -100,6 +105,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
+//! favorite button
                   Positioned(
                     bottom: 45,
                     left: 25,
@@ -118,11 +124,32 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ),
                         ],
                       ),
-                      child: Icon(Icons.favorite_border),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            widget.singleProduct.isFavorite =
+                                !widget.singleProduct.isFavorite;
+                          });
+                          if (widget.singleProduct.isFavorite) {
+                            appProvider.getFavoriteProductList
+                                .add(widget.singleProduct);
+                          } else {
+                            appProvider.getFavoriteProductList
+                                .remove(widget.singleProduct);
+                          }
+                        },
+                        child: Icon(
+                          appProvider.getFavoriteProductList
+                                  .contains(widget.singleProduct)
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
+//! name
               Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
@@ -134,7 +161,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.singleProduct.name,
+                              widget.singleProduct.name.toString(),
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500,
@@ -142,8 +169,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               ),
                             ),
                             SizedBox(height: 8),
+// !price
                             Text(
-                              '\$${widget.singleProduct.price}',
+                              '\$${widget.singleProduct.price.toString()}',
                               style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w800,
@@ -152,6 +180,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ],
                         ),
                         Spacer(),
+//! Quantity Buttons
                         GestureDetector(
                           onTap: () {
                             if (quantity >= 1) {
@@ -164,7 +193,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: Colors.grey[400],
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Icon(Icons.remove),
@@ -189,7 +218,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              color: Colors.grey[400],
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Icon(Icons.add),
@@ -198,8 +227,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ],
                     ),
                     SizedBox(height: 16),
+//! Discription
                     Text(
-                      widget.singleProduct.discription,
+                      widget.singleProduct.discription.toString(),
                       style: TextStyle(
                           fontSize: 16, color: Colors.black.withOpacity(0.6)),
                     ),
@@ -210,6 +240,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ],
           ),
         ),
+//! Bottom Button
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(16),
@@ -252,7 +283,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FavoriteScreen(),
+                      ),
+                    );
+                  },
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(

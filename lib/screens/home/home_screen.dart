@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_firestore_helper/firebase_firestore_helper.dart';
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
+import 'package:flutter_ecommerce/provider/app_provider.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/header_widget.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/shimmer_widgets.dart';
 import 'package:flutter_ecommerce/screens/product_datails/product_details.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<int> selectedTabIndex = ValueNotifier<int>(0);
+    AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -170,10 +173,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                       right: 12,
                                       top: 12,
                                       child: GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          setState(() {
+                                            singleProduct.isFavorite =
+                                                !singleProduct.isFavorite;
+                                          });
+                                          if (singleProduct.isFavorite) {
+                                            appProvider.getFavoriteProductList
+                                                .add(singleProduct);
+                                          } else {
+                                            appProvider.getFavoriteProductList
+                                                .remove(singleProduct);
+                                          }
+                                        },
                                         child: Icon(
                                           Icons.favorite,
-                                          color: Colors.white,
+                                          color: appProvider
+                                                  .getFavoriteProductList
+                                                  .contains(singleProduct)
+                                              ? Colors.black
+                                              : Colors.white,
                                         ),
                                       ),
                                     ),
