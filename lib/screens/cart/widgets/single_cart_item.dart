@@ -1,9 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/constants.dart';
+
+import 'package:flutter_ecommerce/models/product_model/product_model.dart';
+import 'package:flutter_ecommerce/provider/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class CartItem extends StatefulWidget {
-  const CartItem({super.key});
+  ProductModel productModel;
+  CartItem({
+    Key? key,
+    required this.productModel,
+  }) : super(key: key);
 
   @override
   State<CartItem> createState() => _CartItemState();
@@ -11,6 +21,12 @@ class CartItem extends StatefulWidget {
 
 class _CartItemState extends State<CartItem> {
   int quantity = 1;
+  @override
+  void initState() {
+    quantity = widget.productModel.quantity ?? 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,8 +39,7 @@ class _CartItemState extends State<CartItem> {
             color: Colors.redAccent,
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-              image: NetworkImage(
-                  'https://image.tmdb.org/t/p/w500/bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg'),
+              image: NetworkImage(widget.productModel.image),
               fit: BoxFit.cover,
             ),
           ),
@@ -34,12 +49,12 @@ class _CartItemState extends State<CartItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Item Name',
+              widget.productModel.name,
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 8),
             Text(
-              '\$ 10.5',
+              '\$ ${widget.productModel.price}',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -96,7 +111,14 @@ class _CartItemState extends State<CartItem> {
           ],
         ),
         Spacer(),
-        Icon(Icons.close_rounded),
+        GestureDetector(
+            onTap: () {
+              AppProvider appProvider =
+                  Provider.of<AppProvider>(context, listen: false);
+              appProvider.removeCartProduct(widget.productModel);
+              showMessage('Removed From Cart');
+            },
+            child: Icon(Icons.close_rounded)),
       ],
     );
   }

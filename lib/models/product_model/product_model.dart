@@ -9,6 +9,7 @@ class ProductModel {
   String price;
   String discription;
   String status;
+  int? quantity;
   ProductModel({
     required this.image,
     required this.id,
@@ -17,6 +18,7 @@ class ProductModel {
     required this.price,
     required this.discription,
     required this.status,
+    this.quantity,
   });
 
   Map<String, dynamic> toMap() {
@@ -28,6 +30,7 @@ class ProductModel {
       'price': price,
       'discription': discription,
       'status': status,
+      'quantity': quantity
     };
   }
 
@@ -40,11 +43,24 @@ class ProductModel {
       price: map['price'] as String,
       discription: map['discription'] as String,
       status: map['status'] as String,
+      quantity: map['status'],
+    );
+  }
+
+  ProductModel copyWith({
+    int? quantity,
+  }) {
+    return ProductModel(
+      image: image,
+      id: id,
+      isFavorite: isFavorite,
+      name: name,
+      price: price,
+      discription: discription,
+      status: status,
+      quantity: quantity,
     );
   }
 
   String toJson() => json.encode(toMap());
-
-  // factory ProductModel.fromJson(String source) =>
-  //     ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

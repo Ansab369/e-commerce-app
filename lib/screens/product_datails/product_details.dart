@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/constants.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
+import 'package:flutter_ecommerce/provider/app_provider.dart';
 import 'package:flutter_ecommerce/screens/cart/cart_screen.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final ProductModel singleProduct;
@@ -213,6 +216,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           child: Row(
             children: [
               TextButton(
+                onPressed: () async {
+                  AppProvider appProvider =
+                      Provider.of<AppProvider>(context, listen: false);
+                  ProductModel productModel =
+                      widget.singleProduct.copyWith(quantity: quantity);
+                  appProvider.addCartProduct(productModel);
+                  showMessage('Added to Cart');
+                },
                 style: TextButton.styleFrom(
                   side: BorderSide(
                     color: Colors.black,
@@ -224,7 +235,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                onPressed: () async {},
                 child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Icon(
@@ -254,24 +264,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               ),
             ],
           ),
-          // child: TextButton(
-          //   style: TextButton.styleFrom(
-          //     minimumSize: Size(double.infinity, 40),
-          //     foregroundColor: Colors.white,
-          //     backgroundColor: Colors.black,
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(10),
-          //     ),
-          //   ),
-          //   onPressed: () async {},
-          //   child: Padding(
-          //     padding: EdgeInsets.all(10),
-          //     child: Text(
-          //       'Add To Cart',
-          //       style: TextStyle(fontSize: 17),
-          //     ),
-          //   ),
-          // ),
         ),
       ),
     );
