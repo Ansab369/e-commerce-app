@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/constants/constants.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_firestore_helper/firebase_firestore_helper.dart';
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
@@ -181,9 +182,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           if (singleProduct.isFavorite) {
                                             appProvider.getFavoriteProductList
                                                 .add(singleProduct);
+                                            showMessage('Added to Favorite');
                                           } else {
                                             appProvider.getFavoriteProductList
                                                 .remove(singleProduct);
+                                            showMessage(
+                                                'Removed from Favorite');
                                           }
                                         },
                                         child: Icon(
