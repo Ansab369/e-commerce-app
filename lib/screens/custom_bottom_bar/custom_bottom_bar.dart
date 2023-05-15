@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/account/account_screen.dart';
 import 'package:flutter_ecommerce/screens/cart/cart_screen.dart';
 import 'package:flutter_ecommerce/screens/favourite/favourite_screen.dart';
 import 'package:flutter_ecommerce/screens/home/home_screen.dart';
@@ -21,7 +22,7 @@ class _CustomBottomVarState extends State<CustomBottomVar> {
         HomeScreen(),
         CartScreen(),
         FavoriteScreen(),
-        // account Screen
+        AccountScreeen(),
       ];
 
   List<PersistentBottomNavBarItem> _navBarsItems() => [
@@ -43,6 +44,13 @@ class _CustomBottomVarState extends State<CustomBottomVar> {
           icon: const Icon(Icons.favorite_outlined),
           inactiveIcon: const Icon(Icons.favorite_border),
           title: "Favorite",
+          activeColorPrimary: Colors.white,
+          inactiveColorPrimary: Colors.white,
+        ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(Icons.person),
+          inactiveIcon: const Icon(Icons.person_2_outlined),
+          title: "Account",
           activeColorPrimary: Colors.white,
           inactiveColorPrimary: Colors.white,
         ),
