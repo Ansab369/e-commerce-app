@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/cart/cart_screen.dart';
@@ -14,8 +14,8 @@ class CustomBottomVar extends StatefulWidget {
 }
 
 class _CustomBottomVarState extends State<CustomBottomVar> {
-  PersistentTabController _controller = PersistentTabController();
-  bool _hideNavBar = false;
+  final PersistentTabController _controller = PersistentTabController();
+  final bool _hideNavBar = false;
 
   List<Widget> _buildScreens() => [
         HomeScreen(),

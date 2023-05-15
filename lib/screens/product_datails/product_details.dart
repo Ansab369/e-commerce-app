@@ -284,12 +284,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   ),
                   onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FavoriteScreen(),
-                      ),
-                    );
+                    //! goto BuY product page
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => FavoriteScreen(),
+                    //   ),
+                    // );
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10),
