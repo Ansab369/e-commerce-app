@@ -124,8 +124,11 @@ class SignUpScreen extends StatelessWidget {
                   bool isValidate = signUpValidation(
                       email.text, password.text, name.text, phone.text);
                   if (isValidate) {
-                    bool isSignIn = await FirebaseAuthHelper.instance
-                        .signUp(email.text, password.text, context);
+                    bool isSignIn = await FirebaseAuthHelper.instance.signUp(
+                        name: name.text,
+                        emailAddress: email.text,
+                        password: password.text,
+                        context: context);
                     if (isSignIn) {
                       Navigator.pushReplacementNamed(context, '/home');
                     }
