@@ -122,7 +122,11 @@ class SignUpScreen extends StatelessWidget {
                 onPressed: () async {
                   //! signIn
                   bool isValidate = signUpValidation(
-                      email.text, password.text, name.text, phone.text);
+                    email.text,
+                    password.text,
+                    name.text,
+                    phone.text,
+                  );
                   if (isValidate) {
                     bool isSignIn = await FirebaseAuthHelper.instance.signUp(
                         name: name.text,

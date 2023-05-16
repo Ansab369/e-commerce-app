@@ -46,7 +46,7 @@ class FirebaseAuthHelper {
         image: null,
       );
 
-      _firebaseFirestore
+      await _firebaseFirestore
           .collection('users')
           .doc(userModel.id)
           .set(userModel.toJson());
@@ -59,5 +59,9 @@ class FirebaseAuthHelper {
       return false;
     }
     //!
+  }
+
+  void logOut() {
+    _auth.signOut();
   }
 }

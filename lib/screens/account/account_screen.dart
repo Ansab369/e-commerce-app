@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 
 class AccountScreeen extends StatelessWidget {
   const AccountScreeen({super.key});
@@ -82,7 +83,7 @@ class AccountScreeen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: TextButton(
               onPressed: () {
-                // Navigator.pushNamed(context, '/signup');
+                FirebaseAuthHelper.instance.logOut();
               },
               style: TextButton.styleFrom(
                 minimumSize: Size(double.infinity, 40),
