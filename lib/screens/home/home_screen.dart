@@ -6,6 +6,7 @@ import 'package:flutter_ecommerce/firebase_helper/firebase_firestore_helper/fire
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
 import 'package:flutter_ecommerce/provider/app_provider.dart';
+import 'package:flutter_ecommerce/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/header_widget.dart';
 import 'package:flutter_ecommerce/screens/home/widgets/shimmer_widgets.dart';
 import 'package:flutter_ecommerce/screens/product_datails/product_details.dart';
@@ -28,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 // initstate
   @override
   void initState() {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
+    appProvider.getUserInfoFirebase();
     getCategoryList();
     super.initState();
   }
@@ -253,6 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      // bottomNavigationBar: CustomBottomVar(),
     );
   }
 }

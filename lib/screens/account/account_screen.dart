@@ -3,12 +3,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
+import 'package:flutter_ecommerce/provider/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreeen extends StatelessWidget {
   const AccountScreeen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,17 +28,22 @@ class AccountScreeen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(
-                    'https://image.tmdb.org/t/p/w500/bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg'),
-              ),
+              appProvider.getUserInformation!.image != null
+                  ? CircleAvatar(
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                          'https://image.tmdb.org/t/p/w500/bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg'),
+                    )
+                  : Icon(
+                      Icons.person_rounded,
+                      size: 90,
+                    ),
               SizedBox(width: 40),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'John Doe',
+                    appProvider.getUserInformation!.name,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -43,7 +51,7 @@ class AccountScreeen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   Text(
-                    '73569 48446',
+                    appProvider.getUserInformation!.email,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey,

@@ -1,9 +1,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_ecommerce/constants/constants.dart';
 import 'package:flutter_ecommerce/models/category%20model/category_model.dart';
 import 'package:flutter_ecommerce/models/product_model/product_model.dart';
+import 'package:flutter_ecommerce/models/user_model/user_model.dart';
 
 class FirebaseFirestoreHelper {
   static FirebaseFirestoreHelper instance = FirebaseFirestoreHelper();
@@ -61,5 +63,14 @@ class FirebaseFirestoreHelper {
       showMessage(error.toString());
       return [];
     }
+  }
+
+  Future<UserModel> getUserData() async {
+    DocumentSnapshot<Map<String, dynamic>> querySnapshot =
+        await _firebaseFirestore
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .get();
+    return UserModel.fromJson(querySnapshot.data()!);
   }
 }
