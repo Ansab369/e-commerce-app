@@ -71,26 +71,39 @@ class AccountScreeen extends StatelessWidget {
           ),
           SizedBox(height: 30),
           //! add inkWll() for each item
-          ProfileOptionWidgets(
-            title: 'My Orders',
-            subTitle: '10 Orders',
+          InkWell(
+            onTap: () {},
+            child: ProfileOptionWidgets(
+              title: 'My Orders',
+              subTitle: '10 Orders',
+            ),
           ),
-          ProfileOptionWidgets(
-            title: 'Manage Address',
-            subTitle: 'Change or Add Address',
+          InkWell(
+            onTap: () {},
+            child: ProfileOptionWidgets(
+              title: 'Manage Address',
+              subTitle: 'Change or Add Address',
+            ),
           ),
-          ProfileOptionWidgets(
-            title: 'About us',
-            subTitle: 'Check about our Vision',
+          InkWell(
+            onTap: () {},
+            child: ProfileOptionWidgets(
+              title: 'About us',
+              subTitle: 'Check about our Vision',
+            ),
           ),
-          ProfileOptionWidgets(
-            title: 'Support',
-            subTitle: 'Get Support From Our Team',
+          InkWell(
+            onTap: () {},
+            child: ProfileOptionWidgets(
+              title: 'Support',
+              subTitle: 'Get Support From Our Team',
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: TextButton(
               onPressed: () {
+                // logout function
                 FirebaseAuthHelper.instance.logOut();
               },
               style: TextButton.styleFrom(
@@ -126,7 +139,6 @@ class ProfileOptionWidgets extends StatelessWidget {
   final String title;
   final String subTitle;
 
-  // var onTap;
   const ProfileOptionWidgets({
     Key? key,
     required this.title,
