@@ -100,7 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     bool isLogined = await FirebaseAuthHelper.instance
                         .login(email.text, password.text, context);
                     if (isLogined) {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/navBar');
+                      // custom navBar
                     }
                   }
                 },

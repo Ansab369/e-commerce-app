@@ -134,7 +134,7 @@ class SignUpScreen extends StatelessWidget {
                         password: password.text,
                         context: context);
                     if (isSignIn) {
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/navBar');
                     }
                   }
                 },
