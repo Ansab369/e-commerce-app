@@ -243,7 +243,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 //! Bottom Button
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(bottom: 50, right: 16, left: 16),
           child: Row(
             children: [
               TextButton(
@@ -267,7 +267,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ),
                 ),
                 child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(8),
                     child: Icon(
                       Icons.shopping_cart,
                       color: Colors.black,
