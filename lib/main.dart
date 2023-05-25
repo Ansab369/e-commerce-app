@@ -7,6 +7,7 @@ import 'package:flutter_ecommerce/screens/auth_ui/login/login_screen.dart';
 import 'package:flutter_ecommerce/screens/auth_ui/sign_up/signup_screen.dart';
 import 'package:flutter_ecommerce/screens/auth_ui/welcome/welcom_screen.dart';
 import 'package:flutter_ecommerce/screens/custom_bottom_bar/custom_bottom_bar.dart';
+import 'package:flutter_ecommerce/screens/edit_profile/edit_profile_screen.dart';
 import 'package:flutter_ecommerce/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/welcome': (context) => const WelcomScreen(),
           '/navBar': (context) => const CustomBottomVar(),
+          // '/editProfile': (context) => EditProfileScreen(),
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const SignUpScreen(),
           '/home': (context) => const HomeScreen(),

@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/firebase_helper/firebase_auth_helper/firebase_auth_helper.dart';
 import 'package:flutter_ecommerce/provider/app_provider.dart';
+import 'package:flutter_ecommerce/screens/edit_profile/edit_profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class AccountScreeen extends StatelessWidget {
@@ -58,11 +59,23 @@ class AccountScreeen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    'Edit',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.blueGrey,
+                  GestureDetector(
+                    onTap: () {
+                      // goto EditProfileScreen
+                      // Navigator.pushNamed(context, '/editProfile');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfileScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Edit',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey,
+                      ),
                     ),
                   ),
                 ],

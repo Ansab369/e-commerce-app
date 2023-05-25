@@ -267,11 +267,12 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ),
                 ),
                 child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.black,
-                    )),
+                  padding: EdgeInsets.all(8),
+                  child: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.black,
+                  ),
+                ),
               ),
               SizedBox(width: 10),
               Expanded(
