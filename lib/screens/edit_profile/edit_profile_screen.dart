@@ -2,7 +2,9 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/provider/app_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -10,7 +12,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  String _name = '';
+  String? _name;
   String _email = '';
   String _bio = '';
   File? _image;
@@ -42,6 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -65,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             SizedBox(height: 16.0),
             TextFormField(
-              initialValue: _name,
+              // initialValue: _name,
               decoration: InputDecoration(labelText: 'Name'),
               onChanged: (value) {
                 setState(() {
