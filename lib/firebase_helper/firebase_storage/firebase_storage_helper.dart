@@ -7,8 +7,13 @@ class FirebaseStorageHelper {
   static FirebaseStorageHelper instance = FirebaseStorageHelper();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  // Future<String> uploadUserImage(File image) async {
-  //   String userId = FirebaseAuth.instance.currentUser!.uid;
-  //   _storage.ref("users").putFile(image)
-  // }
+  Future<String> uploadUserImage(File image) async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    TaskSnapshot taskSnapshot = _storage.ref(userId).putFile(image).snapshot;
+    String imageUrl = await taskSnapshot.ref.getDownloadURL();
+    return imageUrl;
+  }
 }
+
+
+// 5:33
